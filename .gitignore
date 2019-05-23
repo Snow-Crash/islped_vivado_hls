@@ -1,0 +1,15 @@
+
+hls/.cproject
+
+*\.autopilot
+*\vhdl
+*\verilog
+*\systemc
+*.xml
+*.launch
+*.apfmapping
+*.log
+*.app
+*.aps
+*.rpt
+*.directive
