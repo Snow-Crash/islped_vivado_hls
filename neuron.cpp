@@ -7,11 +7,11 @@ void neuron (ap_uint<INPUT_DIM> input_spike,ap_uint<NEURON_NUM> output_spike,
 	int neuron_idx;
 	int synapse_idx;
 
-	data_t tau_m = 10;
-	data_t tau_s = 2.5;
-	data_t decay_tau_m = 0.9048374;
-	data_t decay_tau_s = 0.67032;
-	data_t norm_factor = 2.1165;
+	static data_t tau_m = 10;
+	static data_t tau_s = 2.5;
+	static data_t decay_tau_m = 0.9048374;
+	static data_t decay_tau_s = 0.67032;
+	static data_t norm_factor = 2.1165;
 
 	data_t new_k[INPUT_DIM];
 
