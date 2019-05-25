@@ -30,7 +30,7 @@ namespace csv
             void push(const std::string &);
             bool set(const std::string &, const std::string &); 
 
-    	private:
+    	public:
     		const std::vector<std::string> _header;
     		std::vector<std::string> _values;
 
@@ -84,7 +84,7 @@ namespace csv
     	void parseHeader(void);
     	void parseContent(void);
 
-    private:
+    public:
         std::string _file;
         const DataType _type;
         const char _sep;

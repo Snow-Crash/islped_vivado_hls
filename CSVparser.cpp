@@ -68,7 +68,9 @@ namespace csv {
      std::vector<std::string>::iterator it;
      
      it = _originalFile.begin();
-     it++; // skip header
+
+     //comment out, don't skip header
+     //it++; // skip header
 
      for (; it != _originalFile.end(); it++)
      {
