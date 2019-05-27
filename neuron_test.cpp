@@ -98,7 +98,7 @@ int main()
 	{
 		std::cout << "step: " << t << "\n";
 		ap_uint<INPUT_DIM> in_spike = 0;
-		ap_uint<INPUT_DIM> out_spike = 0;
+		ap_uint<NEURON_NUM> out_spike = 0;
 
 		// assign value to input spike
 		for (int i = 0; i != INPUT_DIM; i++)
@@ -109,7 +109,7 @@ int main()
 
 		std::cout << "\n";
 		//std::cout << "before call: " << t << "\n";
-		neuron (in_spike, out_spike, voltage, weight, k1, k2);
+		out_spike = neuron (in_spike, voltage, weight, k1, k2);
 //
 
 		for(int i = 0; i != NEURON_NUM; i++)

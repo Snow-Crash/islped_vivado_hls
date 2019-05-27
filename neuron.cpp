@@ -73,12 +73,14 @@
 
 
 
-void neuron (ap_uint<INPUT_DIM> input_spike, ap_uint<NEURON_NUM> output_spike,
+ap_uint<NEURON_NUM> neuron (ap_uint<INPUT_DIM> input_spike,
 		data_t voltage[NEURON_NUM], data_t weight[NEURON_NUM][INPUT_DIM],
 		data_t k1[INPUT_DIM],data_t k2[INPUT_DIM])
 {
 	int neuron_idx;
 	int synapse_idx;
+
+	ap_uint<NEURON_NUM> output_spike = 0;
 
 	static data_t tau_m = 10;
 	static data_t tau_s = 2.5;
@@ -112,10 +114,10 @@ void neuron (ap_uint<INPUT_DIM> input_spike, ap_uint<NEURON_NUM> output_spike,
 		voltage[neuron_idx] = acc_voltage;
 
 		if (acc_voltage > THRESHOLD)
-			output_spike[neuron_idx] = 0;
-		else
 			output_spike[neuron_idx] = 1;
 	}
+
+	return output_spike;
 }
 
 

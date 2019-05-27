@@ -6,8 +6,8 @@
 
 
 
-#define USE_FLOATING
-//#define USE_FIXED
+//#define USE_FLOATING
+#define USE_FIXED
 
 #ifdef USE_FLOATING
 	typedef float	data_t;
@@ -49,9 +49,8 @@
 #define WINDOW 450
 
 
-void neuron (
+ap_uint<NEURON_NUM> neuron (
 	ap_uint<INPUT_DIM> input_spike,
-	ap_uint<NEURON_NUM> output_spike,
 	data_t voltage[NEURON_NUM],
 	data_t weight[NEURON_NUM][INPUT_DIM],
 	data_t k1[INPUT_DIM],
