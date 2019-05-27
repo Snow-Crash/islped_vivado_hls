@@ -73,9 +73,8 @@
 
 
 
-ap_uint<NEURON_NUM> neuron (ap_uint<INPUT_DIM> input_spike,
-		data_t voltage[NEURON_NUM], data_t weight[NEURON_NUM][INPUT_DIM],
-		data_t k1[INPUT_DIM],data_t k2[INPUT_DIM])
+ap_uint<NEURON_NUM> neuron (ap_uint<INPUT_DIM> input_spike, data_t voltage[NEURON_NUM],
+		data_t weight[NEURON_NUM][INPUT_DIM], data_t k1[INPUT_DIM],data_t k2[INPUT_DIM])
 {
 	int neuron_idx;
 	int synapse_idx;
