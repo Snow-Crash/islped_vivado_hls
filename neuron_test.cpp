@@ -88,6 +88,9 @@ int main()
 		k2[i] = 0;
 	}
 
+	int output_spike_error_count = 0;
+	int voltage_error_count = 0;
+
 	for (int t = 0; t != WINDOW; t++)
 	{
 		std::cout << "step: " << t << "\n";
@@ -112,6 +115,14 @@ int main()
 		for(int i = 0; i != NEURON_NUM; i++)
 			std::cout << ref_potential[i][t] << ",";
 
+		//compare the difference of python model and hardware model
+		for(int i = 0; i != NEURON_NUM; i++)
+		{
+			float diff = ref_potential[i][t]-voltage[i].to_float();
+			if (abs(diff) > abs(ref_potential[i][t]*0.1))
+				voltage_error_count++;
+		}
+
 		std::cout << "\n";
 
 		//print reference output
@@ -122,9 +133,18 @@ int main()
 		//print actual output
 		for (int i = 0; i != NEURON_NUM; i++)
 			std::cout << out_spike[i];
-//
+
+		//compare reference output spike and hardware model output
+		for (int i = 0; i != NEURON_NUM; i++)
+		{
+			if (out_spike[i] != ref_output_spike[i][t])
+				output_spike_error_count++;
+		}
 		std::cout << "\n";
 	}
+
+	std::cout << "spike error count: " << output_spike_error_count << "\n";
+	std::cout << "voltage error count: " << voltage_error_count << "\n";
 
 	return 0;
 }
