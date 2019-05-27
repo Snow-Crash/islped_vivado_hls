@@ -5,13 +5,8 @@
 //https://github.com/rsylvian/CSVparser
 #include "CSVparser.hpp"
 
-
 int main()
 {
-
-//	void neuron (ap_uint<INPUT_DIM> input_spike, ap_uint<NEURON_NUM> output_spike,
-//			data_t voltage[NEURON_NUM], data_t weight[NEURON_NUM][INPUT_DIM],
-//			data_t k1[INPUT_DIM],data_t k2[INPUT_DIM])
 
 	//read reference membrane potential
 	float ref_potential[NEURON_NUM][WINDOW];
@@ -93,7 +88,6 @@ int main()
 		k2[i] = 0;
 	}
 
-
 	for (int t = 0; t != WINDOW; t++)
 	{
 		std::cout << "step: " << t << "\n";
@@ -108,9 +102,7 @@ int main()
 		}
 
 		std::cout << "\n";
-		//std::cout << "before call: " << t << "\n";
 		out_spike = neuron (in_spike, voltage, weight, k1, k2);
-//
 
 		for(int i = 0; i != NEURON_NUM; i++)
 			std::cout << voltage[i] << ",";
@@ -133,8 +125,6 @@ int main()
 //
 		std::cout << "\n";
 	}
-
-
 
 	return 0;
 }
