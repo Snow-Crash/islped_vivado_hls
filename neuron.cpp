@@ -5,7 +5,8 @@
 
 
 ap_uint<NEURON_NUM> neuron (ap_uint<INPUT_DIM> input_spike, data_t voltage[NEURON_NUM],
-		data_t weight[NEURON_NUM][INPUT_DIM], data_t k1[INPUT_DIM],data_t k2[INPUT_DIM])
+		data_t weight[NEURON_NUM][INPUT_DIM], data_t k1[INPUT_DIM],data_t k2[INPUT_DIM],
+		hls::stream<ap_uint<32> > &psp)
 {
 	int neuron_idx;
 	int synapse_idx;
@@ -25,7 +26,7 @@ ap_uint<NEURON_NUM> neuron (ap_uint<INPUT_DIM> input_spike, data_t voltage[NEURO
 		data_t new_k1 = k1[synapse_idx] * decay_tau_m + input_spike[synapse_idx];
 		data_t new_k2 = k2[synapse_idx] * decay_tau_s + input_spike[synapse_idx];
 		new_k[synapse_idx] = new_k1 - new_k2;
-
+		psp.write(new_k1 - new_k2);
 		k1[synapse_idx] = new_k1;
 		k2[synapse_idx] = new_k2;
 	}

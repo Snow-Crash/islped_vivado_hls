@@ -4,6 +4,7 @@
 
 //https://github.com/rsylvian/CSVparser
 #include "CSVparser.hpp"
+#include "hls_stream.h"
 
 int main()
 {
@@ -90,6 +91,7 @@ int main()
 
 	int output_spike_error_count = 0;
 	int voltage_error_count = 0;
+	hls::stream<ap_uint<32> > psp;
 
 	for (int t = 0; t != WINDOW; t++)
 	{
@@ -104,8 +106,12 @@ int main()
 			std::cout << in_spike[i];
 		}
 
+
 		std::cout << "\n";
-		out_spike = neuron (in_spike, voltage, weight, k1, k2);
+		out_spike = neuron (in_spike, voltage, weight, k1, k2, psp);
+
+		for (int i = 0; i != INPUT_DIM; i++)
+			psp.read();
 
 		for(int i = 0; i != NEURON_NUM; i++)
 			std::cout << voltage[i] << ",";

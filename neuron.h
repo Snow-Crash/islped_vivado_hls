@@ -3,6 +3,7 @@
 
 #include "ap_fixed.h"
 #include "ap_int.h"
+#include "hls_stream.h"
 
 
 
@@ -54,7 +55,8 @@ ap_uint<NEURON_NUM> neuron (
 	data_t voltage[NEURON_NUM],
 	data_t weight[NEURON_NUM][INPUT_DIM],
 	data_t k1[INPUT_DIM],
-	data_t k2[INPUT_DIM]
+	data_t k2[INPUT_DIM],
+	hls::stream<ap_uint<32> > &psp
   );
 
 #endif
