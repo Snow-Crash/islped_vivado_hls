@@ -5,6 +5,7 @@
 //https://github.com/rsylvian/CSVparser
 #include "CSVparser.hpp"
 #include "hls_stream.h"
+#include <fstream>
 
 int main()
 {
@@ -67,9 +68,30 @@ int main()
 		{
 			weight[i][j] = atof(file[i][j].c_str());
 			//std::cout << file[i][j].c_str() << ",";
-			//std::cout << weight[i][j] << "\n";
+			std::cout << weight[i][j] << "\n";
 		}
 	}
+
+	//write fixed point weight to txt file
+
+	std::ofstream myfile;
+	myfile.open ("weight_hex.txt");
+	myfile << "memory_initialization_radix = 16;\n";
+	myfile << "memory_initialization_vector =\n";
+	for (int i = 0; i != row_num; i++)
+	{
+		for (int j = 0; j != col_num; j++)
+		{
+			//std::cout << file[i][j].c_str() << ",";
+			std::cout << file[i][j] << std::hex << ",\n";
+			myfile << weight[i][j].to_string(16,true).c_str() << ",";
+			if (i == row_num-1 && j == col_num-1)
+				myfile << ";";
+			else
+				myfile << "\n";
+		}
+	}
+	myfile.close();
 
 	ap_uint<NEURON_NUM> output_spike[WINDOW];
 
