@@ -47,7 +47,7 @@ namespace csv
                     ss >> res;
                     return res;
                 }
-                throw Error("can't return this value (doesn't exist)");
+                //throw Error("can't return this value (doesn't exist)");
             }
             const std::string operator[](unsigned int) const;
             const std::string operator[](const std::string &valueName) const;
