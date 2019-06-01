@@ -76,19 +76,16 @@ int main()
 
 	std::ofstream myfile;
 	myfile.open ("weight_hex.txt");
-	myfile << "memory_initialization_radix = 16;\n";
-	myfile << "memory_initialization_vector =\n";
+
+	//convert fixed point weight to hex string and save into txt file
+	//txt file is read by a python script and reformatted to create coe file
 	for (int i = 0; i != row_num; i++)
 	{
 		for (int j = 0; j != col_num; j++)
 		{
 			//std::cout << file[i][j].c_str() << ",";
 			std::cout << file[i][j] << std::hex << ",\n";
-			myfile << weight[i][j].to_string(16,true).c_str() << ",";
-			if (i == row_num-1 && j == col_num-1)
-				myfile << ";";
-			else
-				myfile << "\n";
+			myfile << weight[i][j].to_string(16,false).c_str() << "\n";
 		}
 	}
 	myfile.close();
