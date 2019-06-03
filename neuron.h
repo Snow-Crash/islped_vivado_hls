@@ -50,13 +50,12 @@
 #define WINDOW 450
 
 
-ap_uint<NEURON_NUM> neuron (
-	ap_uint<INPUT_DIM> input_spike,
-	data_t voltage[NEURON_NUM],
-	data_t weight[NEURON_NUM][INPUT_DIM],
-	data_t k1[INPUT_DIM],
-	data_t k2[INPUT_DIM],
-	hls::stream<ap_uint<32> > &psp
-  );
+ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64,
+		ap_uint<64> input_spike_63_0,
+		hls::stream<ap_fixed<32,20> > &voltage,
+		data_t weight[NEURON_NUM][INPUT_DIM],
+		hls::stream<ap_fixed<32,20> > &psp,
+		int test_var,
+		hls::stream<ap_fixed<32,20> > &test_out);
 
 #endif

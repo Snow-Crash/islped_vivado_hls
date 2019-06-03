@@ -84,7 +84,7 @@ int main()
 		for (int j = 0; j != col_num; j++)
 		{
 			//std::cout << file[i][j].c_str() << ",";
-			std::cout << file[i][j] << std::hex << ",\n";
+			std::cout << file[i][j] << ",\n";
 			myfile << weight[i][j].to_string(16,false).c_str() << "\n";
 		}
 	}
@@ -110,27 +110,37 @@ int main()
 
 	int output_spike_error_count = 0;
 	int voltage_error_count = 0;
-	hls::stream<ap_uint<32> > psp;
+	hls::stream<ap_fixed<32,20> > psp_stream;
+	hls::stream<ap_fixed<32,20> > k1_stream;
+	hls::stream<ap_fixed<32,20> > k2_stream;
+	hls::stream<ap_fixed<32,20> > voltage_stream;
+	hls::stream<ap_fixed<32,20> > test_out_stream;
 
 	for (int t = 0; t != WINDOW; t++)
 	{
 		std::cout << "step: " << t << "\n";
-		ap_uint<INPUT_DIM> in_spike = 0;
+		ap_uint<64> in_spike_127_64 = 0;
+		ap_uint<64> in_spike_63_0 = 0;
 		ap_uint<NEURON_NUM> out_spike = 0;
 
 		// assign value to input spike
-		for (int i = 0; i != INPUT_DIM; i++)
+		for (int i = 0; i != 64; i++)
 		{
-			in_spike[i] = input_spike[i][t];
-			std::cout << in_spike[i];
+			in_spike_63_0[i] = input_spike[i][t];
+			std::cout << in_spike_63_0[i];
+		}
+		for (int i = 0; i != INPUT_DIM-64; i++)
+		{
+			in_spike_127_64[i] = input_spike[i+64][t];
+			std::cout << in_spike_127_64[i];
 		}
 
 
 		std::cout << "\n";
-		out_spike = neuron (in_spike, voltage, weight, k1, k2, psp);
+		out_spike = neuron (in_spike_127_64, in_spike_63_0, voltage_stream, weight, psp_stream, 5, test_out_stream);
 
 		for (int i = 0; i != INPUT_DIM; i++)
-			psp.read();
+			psp_stream.read();
 
 		for(int i = 0; i != NEURON_NUM; i++)
 			std::cout << voltage[i] << ",";
@@ -143,7 +153,7 @@ int main()
 		//compare the difference of python model and hardware model
 		for(int i = 0; i != NEURON_NUM; i++)
 		{
-			float diff = ref_potential[i][t]-voltage[i].to_float();
+			float diff = ref_potential[i][t]-voltage_stream.read().to_float();
 			if (abs(diff) > abs(ref_potential[i][t]*0.1))
 				voltage_error_count++;
 		}
@@ -166,6 +176,13 @@ int main()
 				output_spike_error_count++;
 		}
 		std::cout << "\n";
+
+		for (int i = 0; i != 10; i++)
+		{
+			std::cout << test_out_stream.read() << ",";
+		}
+		std::cout << "\n";
+
 	}
 
 	std::cout << "spike error count: " << output_spike_error_count << "\n";
