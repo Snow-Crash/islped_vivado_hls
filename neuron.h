@@ -55,6 +55,7 @@ ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64,
 		hls::stream<ap_fixed<32,20> > &voltage,
 		data_t weight[NEURON_NUM][INPUT_DIM],
 		hls::stream<ap_fixed<32,20> > &psp,
+		int reset_neuron,
 		int test_var,
 		hls::stream<ap_fixed<32,20> > &test_out);
 

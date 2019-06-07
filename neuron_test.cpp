@@ -137,7 +137,7 @@ int main()
 
 
 		std::cout << "\n";
-		out_spike = neuron (in_spike_127_64, in_spike_63_0, voltage_stream, weight, psp_stream, 5, test_out_stream);
+		out_spike = neuron (in_spike_127_64, in_spike_63_0, voltage_stream, weight, psp_stream, 0, 5, test_out_stream);
 
 		for (int i = 0; i != INPUT_DIM; i++)
 			psp_stream.read();

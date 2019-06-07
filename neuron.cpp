@@ -3,7 +3,7 @@
 
 
 ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64, ap_uint<64> input_spike_63_0, hls::stream<ap_fixed<32,20> > &voltage,
-		data_t weight[NEURON_NUM][INPUT_DIM], hls::stream<ap_fixed<32,20> > &psp, int test_var,
+		data_t weight[NEURON_NUM][INPUT_DIM], hls::stream<ap_fixed<32,20> > &psp, int reset_neuron, int test_var,
 		hls::stream<ap_fixed<32,20> > &test_out)
 {
 	int neuron_idx;
@@ -13,6 +13,16 @@ ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64, ap_uint<64> input_sp
 	static data_t k2[INPUT_DIM];
 
 	ap_uint<NEURON_NUM> output_spike = 0;
+
+	if (reset_neuron == 1)
+	{
+		for (int i = 0; i != INPUT_DIM; i++)
+		{
+			k1[i] = 0;
+			k2[i] = 0;
+		}
+		return output_spike;
+	}
 
 	//static data_t tau_m = 10;
 	//static data_t tau_s = 2.5;
@@ -55,6 +65,7 @@ ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64, ap_uint<64> input_sp
 	{
 		test_out.write(i+test_var);
 	}
+
 
 	return output_spike;
 }
