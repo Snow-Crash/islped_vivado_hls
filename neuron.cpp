@@ -1,9 +1,11 @@
 #include "neuron.h"
-#include "CSVparser.hpp"
+#include "ap_fixed.h"
+#include "ap_int.h"
+#include "hls_stream.h"
 
 
 ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64, ap_uint<64> input_spike_63_0, hls::stream<ap_fixed<32,20> > &voltage,
-		data_t weight[NEURON_NUM][INPUT_DIM], hls::stream<ap_fixed<32,20> > &psp, int reset_neuron, int test_var,
+		data_t weight[NEURON_NUM][INPUT_DIM], hls::stream<ap_fixed<32,20> > &psp, int reset_neuron, int test_var, int enable_test,
 		hls::stream<ap_fixed<32,20> > &test_out)
 {
 	int neuron_idx;
@@ -61,10 +63,15 @@ ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64, ap_uint<64> input_sp
 			output_spike[neuron_idx] = 1;
 	}
 
-	for(int i = 0; i != 10; i++)
+	if (enable_test == 1)
 	{
-		test_out.write(i+test_var);
+		for(int i = 0; i != 10; i++)
+		{
+			test_out.write(i+test_var);
+		}
 	}
+
+
 
 
 	return output_spike;

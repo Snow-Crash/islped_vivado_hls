@@ -57,6 +57,7 @@ ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64,
 		hls::stream<ap_fixed<32,20> > &psp,
 		int reset_neuron,
 		int test_var,
+		int enable_test,
 		hls::stream<ap_fixed<32,20> > &test_out);
 
 #endif
