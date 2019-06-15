@@ -15,3 +15,4 @@ set_directive_interface -mode s_axilite "neuron" test_var
 set_directive_interface -mode s_axilite "neuron" input_spike_127_64
 set_directive_interface -mode s_axilite "neuron" input_spike_63_0
 set_directive_interface -mode s_axilite "neuron" reset_neuron
+set_directive_interface -mode s_axilite "neuron" enable_test

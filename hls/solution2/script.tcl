@@ -16,7 +16,7 @@ add_files -tb CSVparser.hpp -cflags "-std=c++0x"
 add_files -tb CSVparser.cpp -cflags "-std=c++0x"
 open_solution "solution2"
 set_part {xc7a100tcsg324-1}
-create_clock -period 20 -name default
+create_clock -period 100MHz -name default
 source "./hls/solution2/directives.tcl"
 csim_design -clean
 csynth_design
