@@ -32,16 +32,25 @@ ap_uint<NEURON_NUM> neuron (ap_uint<64> input_spike_127_64, ap_uint<64> input_sp
 	static data_t decay_tau_s = 0.67032;
 	static data_t norm_factor = 2.1165;
 
+	data_t k_reg;
 	data_t new_k[INPUT_DIM];
+	data_t decayed_k1;
+	data_t decayed_k2;
 
 	ap_uint<INPUT_DIM> input_spike = (input_spike_127_64, input_spike_63_0);
 
 	loop_spike : for (synapse_idx = 0; synapse_idx != INPUT_DIM; synapse_idx++)
 	{
-		ap_fixed<32,20> new_k1 = k1[synapse_idx] * decay_tau_m + input_spike[synapse_idx];
-		ap_fixed<32,20> new_k2 = k2[synapse_idx] * decay_tau_s + input_spike[synapse_idx];
-		new_k[synapse_idx] = new_k1 - new_k2;
-		psp.write(new_k1 - new_k2);
+//		ap_fixed<32,20> new_k1 = k1[synapse_idx] * decay_tau_m + input_spike[synapse_idx];
+//		ap_fixed<32,20> new_k2 = k2[synapse_idx] * decay_tau_s + input_spike[synapse_idx];
+		decayed_k1 = k1[synapse_idx] * decay_tau_m;
+		decayed_k2 = k2[synapse_idx] * decay_tau_s;
+		ap_fixed<32,20> new_k1 = decayed_k1 + input_spike[synapse_idx];
+		ap_fixed<32,20> new_k2 = decayed_k2 + input_spike[synapse_idx];
+
+		k_reg = new_k1 - new_k2;
+		new_k[synapse_idx] = k_reg;
+		psp.write(k_reg);
 		k1[synapse_idx] = new_k1;
 		k2[synapse_idx] = new_k2;
 	}
