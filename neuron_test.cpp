@@ -149,11 +149,13 @@ int main()
 
 		for(int i = 0; i != NEURON_NUM; i++)
 			std::cout << ref_potential[i][t] << ",";
-
+		std::cout << "\n";
 		//compare the difference of python model and hardware model
 		for(int i = 0; i != NEURON_NUM; i++)
 		{
-			float diff = ref_potential[i][t]-voltage_stream.read().to_float();
+			float v = voltage_stream.read().to_float();
+			std::cout << v << ",";
+			float diff = ref_potential[i][t] - v;
 			if (abs(diff) > abs(ref_potential[i][t]*0.1))
 				voltage_error_count++;
 		}
