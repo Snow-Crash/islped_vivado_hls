@@ -13,3 +13,7 @@ hls/.cproject
 *.aps
 *.rpt
 *.directive
+
+*\csim
+*\sim
+*\impl

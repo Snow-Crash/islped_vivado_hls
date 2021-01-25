@@ -42,6 +42,11 @@
 			<location>D:/islped_demo/vivado_hls/hls/solution1/.tcls</location>
 		</link>
 		<link>
+			<name>solution2/constraints</name>
+			<type>2</type>
+			<location>D:/islped_demo/vivado_hls/hls/solution2/.tcls</location>
+		</link>
+		<link>
 			<name>source/neuron.cpp</name>
 			<type>1</type>
 			<location>D:/islped_demo/vivado_hls/neuron.cpp</location>
@@ -52,9 +57,39 @@
 			<location>D:/islped_demo/vivado_hls/neuron.h</location>
 		</link>
 		<link>
+			<name>testbench/CSVparser.cpp</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/CSVparser.cpp</location>
+		</link>
+		<link>
+			<name>testbench/CSVparser.hpp</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/CSVparser.hpp</location>
+		</link>
+		<link>
 			<name>testbench/neuron_test.cpp</name>
 			<type>1</type>
 			<location>D:/islped_demo/vivado_hls/neuron_test.cpp</location>
+		</link>
+		<link>
+			<name>testbench/tb_inputspike.csv</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/tb_inputspike.csv</location>
+		</link>
+		<link>
+			<name>testbench/tb_outputspike.csv</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/tb_outputspike.csv</location>
+		</link>
+		<link>
+			<name>testbench/tb_potential.csv</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/tb_potential.csv</location>
+		</link>
+		<link>
+			<name>testbench/tb_weight.csv</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/tb_weight.csv</location>
 		</link>
 		<link>
 			<name>solution1/constraints/.xml.directive</name>
@@ -70,6 +105,21 @@
 			<name>solution1/constraints/script.tcl</name>
 			<type>1</type>
 			<location>D:/islped_demo/vivado_hls/hls/solution1/script.tcl</location>
+		</link>
+		<link>
+			<name>solution2/constraints/.xml.directive</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/hls/solution2/solution2.directive</location>
+		</link>
+		<link>
+			<name>solution2/constraints/directives.tcl</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/hls/solution2/directives.tcl</location>
+		</link>
+		<link>
+			<name>solution2/constraints/script.tcl</name>
+			<type>1</type>
+			<location>D:/islped_demo/vivado_hls/hls/solution2/script.tcl</location>
 		</link>
 	</linkedResources>
 </projectDescription>
